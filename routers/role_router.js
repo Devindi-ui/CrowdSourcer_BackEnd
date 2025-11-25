@@ -4,5 +4,6 @@ const router = express.Router();
 
 router.post('/create', roles.createRole);
 router.get('/all', roles.getAllRoles);
+router.get('/find/:id', roles.getRoleById);
 
 module.exports = router;
