@@ -18,6 +18,15 @@ const user = {
         const sql = `SELECT * FROM user WHERE user_id=?
                     AND user.status_d=1`;
         return db.execute(sql,[id]);
+    },
+
+    findByText: async(input) => {
+        const searchText = `%${input}`
+        const sql = `SELECT * FROM user WHERE name LIKE ? OR email LIKE ? 
+                    OR password LIKE ? OR phone LIKE ? OR role_id LIKE ? 
+                    OR status LIKE ? AND user.status_d=1`;
+        return db.execute(sql, [searchText, searchText, searchText, 
+                            searchText, searchText, searchText]);
     }
 }; 
 
