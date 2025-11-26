@@ -1,4 +1,5 @@
 const db = require('../db');
+const { findById } = require('./role_model');
 
 const user = {
     save: (user) => {
@@ -11,6 +12,12 @@ const user = {
         const sql = `SELECT * FROM user WHERE user.status_d=1
                     ORDER BY name DESC`;
         return db.execute(sql);
+    },
+
+    findById: async(id) => {
+        const sql = `SELECT * FROM user WHERE user_id=?
+                    AND user.status_d=1`;
+        return db.execute(sql,[id]);
     }
 }; 
 
