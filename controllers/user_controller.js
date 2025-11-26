@@ -4,8 +4,8 @@ const user = require('../models/user_model');
 const users = {
     createUser: async(req,res) => {
         try {
-            const {name, email, password, phone, role_id, status} = req.body;
-            const [result] = await user.save({name,email,password,phone,role_id,status});
+            const {name, email, password, phone, role_id, status, status_d=1} = req.body;
+            const [result] = await user.save({name,email,password,phone,role_id,status,status_d});
             if(result.affectedRows === 1){
                 res.status(201).json({msg:`User created successful!!`, data: result});       
             }else{
@@ -16,7 +16,18 @@ const users = {
         }
     },
 
-
+    getAllUsers: async(req,res) => {
+        try {
+            const [result] = await user.findAll();
+            if(result.length === 0){
+                res.status(404).json({msg: 'Users not found'});
+                return;
+            }
+            res.status(200).json({data: result});
+        } catch (error) {
+            res.status(500).json({message: 'Server Error', error});
+        }
+    }
 }
 
 module.exports = users;

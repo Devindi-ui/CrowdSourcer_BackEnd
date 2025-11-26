@@ -9,7 +9,7 @@ const role = {
 
     findAll: () => {
         const sql = `SELECT * FROM role WHERE role.status=1 
-                    ORDER BY role_name ASC`;
+                    ORDER BY role_name DESC`;
         return db.execute(sql);
     },
 
