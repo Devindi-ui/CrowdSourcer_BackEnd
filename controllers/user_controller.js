@@ -51,6 +51,20 @@ const users = {
         } catch (error) {
             res.status(500).json({message: 'Internal Server Error', error: error.message});
         }
+    },
+
+    updateUser: async(req,res) => {
+        try {
+            const {name, email, password, phone, role_id, status} = req.body;
+            const id = req.params.id;
+            const [result] = await user.update({name, email, password, phone, role_id, status, id});
+            if(result.affectedRows === 0){
+                return res.status(404).json({message: "User not found"})
+            }
+            res.status(200).json({message: "User updated successfully!!"});
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', error: error.message});
+        }
     }
 }
 

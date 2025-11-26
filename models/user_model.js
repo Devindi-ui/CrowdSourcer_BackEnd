@@ -27,6 +27,12 @@ const user = {
                     OR status LIKE ? AND user.status_d=1`;
         return db.execute(sql, [searchText, searchText, searchText, 
                             searchText, searchText, searchText]);
+    },
+
+    update: (user) => {
+        const {id, name, email, password, phone, role_id, status} = user;
+        const sql = "UPDATE user SET name=?, email=?, password=?, phone=?, role_id=?, status=? WHERE user_id=?";
+        return db.execute(sql, [name, email, password, phone, role_id, status, id]);
     }
 }; 
 

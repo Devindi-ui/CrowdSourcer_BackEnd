@@ -6,5 +6,6 @@ router.post('/create', users.createUser);
 router.get('/all', users.getAllUsers);
 router.get('/find/:id', users.getUserById);
 router.get('/search/:text', users.getUserByText);
+router.put('/update/:id', users.updateUser);
 
 module.exports = router;         
