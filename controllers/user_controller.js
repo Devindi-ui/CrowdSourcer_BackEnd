@@ -65,6 +65,18 @@ const users = {
         } catch (error) {
             res.status(500).json({message: 'Internal Server Error', error: error.message});
         }
+    },
+
+    deleteUser: async(req,res) => {
+        try {
+            const [result] = await user.delete(req.params.id);
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg: "User not found"});
+            }
+            res.status(200).json({message: "User deleted successfully!"});
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', error: error.message});
+        }
     }
 }
 

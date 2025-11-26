@@ -33,6 +33,11 @@ const user = {
         const {id, name, email, password, phone, role_id, status} = user;
         const sql = "UPDATE user SET name=?, email=?, password=?, phone=?, role_id=?, status=? WHERE user_id=?";
         return db.execute(sql, [name, email, password, phone, role_id, status, id]);
+    },
+
+    delete: (id) => {
+        const sql = "UPDATE user SET user.status_d=0 WHERE user_id=?";
+        return db.execute(sql, [id]);
     }
 }; 
 
