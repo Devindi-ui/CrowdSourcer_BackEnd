@@ -29,6 +29,11 @@ const role = {
         const {id, role_name} = role;
         const sql = "UPDATE role SET role_name=? WHERE role_id=?";
         return db.execute(sql, [role_name, id]);
+    },
+
+    delete: (id) => {
+        const sql = "UPDATE role SET role.status=0 WHERE role_id=?";
+        return db.execute(sql, [id]);
     }
 };
 

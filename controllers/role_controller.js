@@ -59,8 +59,18 @@ const roles = {
             }
             res.status(200).json({msg: 'Role updated successfully!'});            
         } catch (error) {
-            console.log(error);
-            
+            res.status(500).json({message: 'Server Error', error: error.message});
+        }
+    },
+
+    deleteRole: async(req,res) => {
+        try {
+            const [result] = await role.delete(req.params.id);
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg: "Role not found"});
+            }
+            res.status(200).json({msg: "Role deleted successfully"});
+        } catch (error) {
             res.status(500).json({message: 'Server Error', error: error.message});
         }
     }
