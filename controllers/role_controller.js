@@ -47,6 +47,22 @@ const roles = {
         } catch (error) {
             res.status(500).json({message: 'Server Error', error: error.message});
         }
+    },
+
+    updateRole: async(req,res) => {
+        try {
+            const {role_name} = req.body;
+            const id = req.params.id;
+            const [result] = await role.update({role_name, id});
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg: 'Role not found'});
+            }
+            res.status(200).json({msg: 'Role updated successfully!'});            
+        } catch (error) {
+            console.log(error);
+            
+            res.status(500).json({message: 'Server Error', error: error.message});
+        }
     }
 }
 

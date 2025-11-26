@@ -23,6 +23,12 @@ const role = {
         const searchText = `%${input}`
         const sql = `SELECT * FROM role WHERE role_name LIKE ? AND status=1`;
         return db.execute(sql,[searchText]);
+    },
+
+    update: (role) => {
+        const {id, role_name} = role;
+        const sql = "UPDATE role SET role_name=? WHERE role_id=?";
+        return db.execute(sql, [role_name, id]);
     }
 };
 
