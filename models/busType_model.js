@@ -11,6 +11,12 @@ const busType = {
         const sql = `SELECT * FROM bus_type WHERE bus_type.status=1
                     ORDER BY type_name DESC`;
         return db.execute(sql);
+    },
+
+    findById: (id) => {
+        const sql = `SELECT * FROM bus_type WHERE bus_type_id=?
+                    AND bus_type.status=1`;
+        return db.execute(sql,[id]);
     }
 }
 
