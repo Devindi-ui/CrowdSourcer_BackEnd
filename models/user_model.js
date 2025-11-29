@@ -21,7 +21,7 @@ const user = {
     },
 
     findByText: async(input) => {
-        const searchText = `%${input}`
+        const searchText = `%${input}%`
         const sql = `SELECT * FROM user WHERE name LIKE ? OR email LIKE ? 
                     OR password LIKE ? OR phone LIKE ? OR role_id LIKE ? 
                     OR status LIKE ? AND user.status_d=1`;

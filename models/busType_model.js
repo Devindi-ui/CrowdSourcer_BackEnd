@@ -17,6 +17,11 @@ const busType = {
         const sql = `SELECT * FROM bus_type WHERE bus_type_id=?
                     AND bus_type.status=1`;
         return db.execute(sql,[id]);
+    },
+
+    findByText: (input) => {
+        const searchText = `%${input}%`
+        const sql = `SELECT * FROM bus_type WHERE `
     }
 }
 

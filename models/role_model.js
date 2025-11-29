@@ -20,7 +20,7 @@ const role = {
     },
 
     findByText: (input) => {
-        const searchText = `%${input}`
+        const searchText = `%${input}%`
         const sql = `SELECT * FROM role WHERE role_name LIKE ? AND status=1`;
         return db.execute(sql,[searchText]);
     },
