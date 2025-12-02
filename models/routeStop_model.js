@@ -1,4 +1,5 @@
 const db = require('../db');
+const { findById } = require('./role_model');
 
 const routeStop = {
     save: (routeStop) => {
@@ -12,6 +13,12 @@ const routeStop = {
         const sql = `SELECT * FROM route_stop WHERE route_stop.status=1
                     ORDER BY stop_order_id ASC`;
         return db.execute(sql);
+    },
+
+    findById: (id) => {
+        const sql = `SELECT * FROM route_stop WHERE stop_order_id=?
+                    AND route_stop.status=1`;
+        return db.execute(sql, [id]);
     }
 }
 
