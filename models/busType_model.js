@@ -21,7 +21,9 @@ const busType = {
 
     findByText: (input) => {
         const searchText = `%${input}%`
-        const sql = `SELECT * FROM bus_type WHERE `
+        const sql = `SELECT * FROM bus_type WHERE type_name LIKE ? OR 
+                    description LIKE ? OR status LIKE ? AND bus_type.status=1`;
+        return db.execute(sql, [searchText,searchText,searchText]);
     }
 }
 
