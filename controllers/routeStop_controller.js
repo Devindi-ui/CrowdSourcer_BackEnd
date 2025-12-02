@@ -35,6 +35,20 @@ const routeStops = {
         } catch (error) {
             res.status(500).json({message: 'Server Error', error: error.message});
         }
+    },
+
+    getRouteStopByText: async(req, res) => {
+        try {
+            const [result] = await routeStop.findByText(req.params.text);
+            console.log();
+            
+            if(result.length === 0){
+                return res.status(404).json({msg: 'Route Stop not found'});
+            }
+            res.status(200).json({data: result});
+        } catch (error) {
+            res.status(500).json({message: 'Server Error', error: error.message});
+        }
     }
 }
 

@@ -19,6 +19,13 @@ const routeStop = {
         const sql = `SELECT * FROM route_stop WHERE stop_order_id=?
                     AND route_stop.status=1`;
         return db.execute(sql, [id]);
+    },
+
+    findByText: (input) => {
+        const searchText = `%${input}%`
+        const sql = `SELECT * FROM route_stop WHERE stop_name LIKE ? AND
+                    route_stop.status=1`;
+        return db.execute(sql, [searchText]);
     }
 }
 

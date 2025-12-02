@@ -5,5 +5,6 @@ const router = express.Router();
 router.post('/create', routeStop.createRouteStop);
 router.get('/all', routeStop.getAllRouteStops);
 router.get('/find/:id', routeStop.getRouteStopById);
+router.get('/search/:text', routeStop.getRouteStopByText);
 
 module.exports = router;
