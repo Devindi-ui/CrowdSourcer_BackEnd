@@ -26,6 +26,12 @@ const routeStop = {
         const sql = `SELECT * FROM route_stop WHERE stop_name LIKE ? AND
                     route_stop.status=1`;
         return db.execute(sql, [searchText]);
+    },
+
+    update: (routeStop) => {
+        const {id, stop_name} = routeStop;
+        const sql = `UPDATE route_stop SET stop_name=? WHERE stop_order_id=?`;
+        return db.execute(sql, [stop_name, id]);
     }
 }
 

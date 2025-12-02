@@ -49,6 +49,20 @@ const routeStops = {
         } catch (error) {
             res.status(500).json({message: 'Server Error', error: error.message});
         }
+    },
+
+    updateRouteStop: async (req, res) => {
+        try {
+            const {stop_name} = req.body;
+            const id = req.params.id;
+            const [result] = await routeStop.update({stop_name, id});
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg: 'Route Stop not found'});
+            }
+            res.status(200).json({msg: 'Route Stop updated successfully!!'});
+        } catch (error) {
+            res.status(500).json({message: 'Server Error', error: error.message});
+        }
     }
 }
 
