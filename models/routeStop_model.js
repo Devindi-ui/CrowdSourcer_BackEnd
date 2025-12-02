@@ -10,7 +10,8 @@ const routeStop = {
 
     findAll: () => {
         const sql = `SELECT * FROM route_stop WHERE route_stop.status=1
-                    ORDER BY `
+                    ORDER BY stop_order_id ASC`;
+        return db.execute(sql);
     }
 }
 
