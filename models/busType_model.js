@@ -24,6 +24,18 @@ const busType = {
         const sql = `SELECT * FROM bus_type WHERE type_name LIKE ? OR 
                     description LIKE ? OR status LIKE ? AND bus_type.status=1`;
         return db.execute(sql, [searchText,searchText,searchText]);
+    },
+
+    update: (busType) => {
+        const {id, type_name, description} = busType;
+        const sql = `UPDATE bus_type SET type_name=?, description=?
+                    WHERE bus_type_id=?`;
+        return db.execute(sql, [type_name, description, id]);
+    },
+
+    delete: (id) => {
+        const sql = "UPDATE bus_type SET bus_type.status=0 WHERE bus_type_id=?";
+        return db.execute(sql, [id]);
     }
 }
 

@@ -50,6 +50,32 @@ const busTypes = {
         } catch (error) {
             res.status(500).json({message: 'Internal Server Error', error: error.message});
         }
+     },
+
+     updatebusType: async(req,res) => {
+        try {
+            const {type_name, description} = req.body;
+            const id = req.params.id;
+            const [result] = await busType.update({type_name, description, id});
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg: 'Bus Type not found'});
+            }
+            res.status(200).json({msg: 'Bus Type updated successfully!!'});
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', error: error.message});
+        }
+     },
+
+     deletebusTyoe: async(req,res) => {
+        try {
+            const [result] = await busType.delete(req.params.id);
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg: "Bus Type not found"});
+            }
+            res.status(200).json({msg: "Bus Type deleted successfully!"});
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', error: error.message});
+        }
      }
 }
 
