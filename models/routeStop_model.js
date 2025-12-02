@@ -32,7 +32,12 @@ const routeStop = {
         const {id, stop_name} = routeStop;
         const sql = `UPDATE route_stop SET stop_name=? WHERE stop_order_id=?`;
         return db.execute(sql, [stop_name, id]);
+    },
+
+    delete: (id) => {
+        const sql = `UPDATE route_stop SET route_stop.status=0 WHERE stop_order_id=?`;
+        return db.execute(sql, [id]); 
     }
-}
+};
 
 module.exports = routeStop;

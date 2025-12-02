@@ -63,6 +63,18 @@ const routeStops = {
         } catch (error) {
             res.status(500).json({message: 'Server Error', error: error.message});
         }
+    },
+
+    deleteRouteStop: async(req, res) => {
+        try {
+            const [result] = await routeStop.delete(req.params.id);
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg: 'Route Stop not found'});
+            }
+            res.status(200).json({msg: 'Route Stop deleted successfully!'});
+        } catch (error) {
+            res.status(500).json({message: 'Server Error', error: error.message});
+        }
     }
 }
 

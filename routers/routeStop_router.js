@@ -7,5 +7,6 @@ router.get('/all', routeStop.getAllRouteStops);
 router.get('/find/:id', routeStop.getRouteStopById);
 router.get('/search/:text', routeStop.getRouteStopByText);
 router.put('/update/:id', routeStop.updateRouteStop);
+router.delete('/delete/:id', routeStop.deleteRouteStop);
 
 module.exports = router;
