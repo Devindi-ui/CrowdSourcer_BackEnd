@@ -49,6 +49,22 @@ const routes = {
         } catch (error) {
             res.status(500).json({message: 'Server Error', error: error.message});
         }
+    },
+
+    updateRoute: async(req,res) => {
+        try {
+            const {route_name, start_point, end_point, total_stops,
+                distance, status} = req.body;
+            const id = req.params.id;
+            const [result] = await route.update({route_name, start_point, 
+                end_point, total_stops, distance, status, id});
+            if(result.length === 0){
+                return res.status(404).json({msg:'Route not found'});
+            }
+            res.status(200).json({msg:'Route updated successfully!'});
+        } catch (error) {
+            res.status(500).json({message: 'Server Error', error: error.message});
+        }
     }
 }
 

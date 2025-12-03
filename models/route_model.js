@@ -31,6 +31,16 @@ const route = {
                     route.status_d=1`;
         return db.execute(sql, [searchText, searchText, searchText, 
             searchText, searchText, searchText]);
+    },
+
+    update: (route) => {
+        const {id, route_name, start_point, end_point, total_stops,
+            distance, status} = route;
+        const sql = `UPDATE route SET route_name=?, start_point=?, 
+                    end_point=?, total_stops=?, distance=?, status=? 
+                    WHERE route_id=?`;
+        return db.execute(sql, [route_name, start_point, end_point, 
+                         total_stops, distance, status, id]);
     }
 }
 
