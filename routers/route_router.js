@@ -4,5 +4,6 @@ const router = express.Router();
 
 router.post('/create', route.createRoute);
 router.get('/all', route.getAllRoute);
+router.get('/find/:id', route.getRouteById);
 
 module.exports = router;

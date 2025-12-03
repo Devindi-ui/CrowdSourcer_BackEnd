@@ -25,6 +25,18 @@ const routes = {
         } catch (error) {
             res.status(500).json({message: 'Server Error', error: error.message});
         }
+    },
+
+    getRouteById: async(req,res) => {
+        try {
+            const [result] = await route.findById(req.params.id);
+            if(result.length === 0){
+                return res.status(200).json({msg: 'Route not found'});
+            }
+            res.status(200).json({data: result});
+        } catch (error) {
+            res.status(500).json({message: 'Server Error', error: error.message});
+        }
     }
 }
 

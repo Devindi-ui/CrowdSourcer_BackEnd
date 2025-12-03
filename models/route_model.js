@@ -15,6 +15,12 @@ const route = {
         const sql = `SELECT * FROM route WHERE route.status_d=1
                     ORDER BY route_id ASC`;
         return db.execute(sql);
+    },
+
+    findById: (id) => {
+        const sql = `SELECT * FROM route WHERE route_id=?
+                    AND route.status_d=1`;
+        return db.execute(sql,[id]);
     }
 }
 
