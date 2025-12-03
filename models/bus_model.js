@@ -14,6 +14,11 @@ const bus = {
         const sql = `SELECT * FROM bus WHERE bus.status_d=1
                     ORDER BY bus_id ASC`;
         return db.execute(sql);
+    },
+
+    findById: (id) => {
+        const sql = `SELECT * FROM bus WHERE bus_id=? AND bus.status_d=1`;
+        return db.execute(sql, [id]);
     }
 }
 
