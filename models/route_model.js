@@ -21,6 +21,16 @@ const route = {
         const sql = `SELECT * FROM route WHERE route_id=?
                     AND route.status_d=1`;
         return db.execute(sql,[id]);
+    },
+
+    findByText: (input) => {
+        const searchText = `%${input}%`
+        const sql = `SELECT * FROM route WHERE route_name LIKE ? OR
+                    start_point LIKE ? OR end_point LIKE ? OR total_stops
+                    LIKE ? OR distance LIKE ? OR status LIKE ? AND
+                    route.status_d=1`;
+        return db.execute(sql, [searchText, searchText, searchText, 
+            searchText, searchText, searchText]);
     }
 }
 
