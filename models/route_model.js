@@ -9,6 +9,12 @@ const route = {
                     VALUES(?,?,?,?,?,?,?,?)`;
         return db.execute (sql, [route_id, route_name, start_point, end_point, 
             total_stops, distance, status, status_d]);
+    },
+
+    findAll: () => {
+        const sql = `SELECT * FROM route WHERE route.status_d=1
+                    ORDER BY route_id ASC`;
+        return db.execute(sql);
     }
 }
 

@@ -3,5 +3,6 @@ const route = require('../controllers/route_controller');
 const router = express.Router();
 
 router.post('/create', route.createRoute);
+router.get('/all', route.getAllRoute);
 
 module.exports = router;
