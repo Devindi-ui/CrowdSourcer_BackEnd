@@ -65,6 +65,18 @@ const routes = {
         } catch (error) {
             res.status(500).json({message: 'Server Error', error: error.message});
         }
+    },
+
+    deleteRoute: async(req,res) => {
+        try {
+            const [result] = await route.delete(req.params.id);
+            if(result.affectedRows === 0){
+                return res.status(404).json({mdg:'Route not found'});
+            }
+            res.status(200).json({msg:'Route deleted successfully'});
+        } catch (error) {
+            res.status(500).json({message: 'Server Error', error: error.message});
+        }
     }
 }
 

@@ -41,6 +41,11 @@ const route = {
                     WHERE route_id=?`;
         return db.execute(sql, [route_name, start_point, end_point, 
                          total_stops, distance, status, id]);
+    },
+
+    delete: (id) => {
+        const sql = `UPDATE route SET route.status_d=0 WHERE route_id=?`;
+        return db.execute(sql, [id]);
     }
 }
 
