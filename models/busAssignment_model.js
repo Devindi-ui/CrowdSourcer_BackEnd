@@ -10,6 +10,12 @@ const busAssignment = {
         return db.execute(sql, [bus_id, user_id, route_id, assigned_place, 
                           assigned_date, assigned_time, status]);
         
+    },
+
+    findAll: () => {
+        const sql = `SELECT * FROM bus_assignment WHERE bus_assignment.status=1
+                    ORDER BY assigned_date DESC`;
+        return db.execute(sql);
     }
 };
 
