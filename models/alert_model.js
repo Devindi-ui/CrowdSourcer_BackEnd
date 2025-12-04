@@ -14,6 +14,12 @@ const alert = {
         const sql = `SELECT * FROM alert WHERE alert.status_d=1
                     ORDER BY alert_id DESC`;
         return db.execute(sql);
+    },
+
+    findById: (id) => {
+        const sql = `SELECT * FROM alert WHERE alert_id=? AND 
+                    alert.status_d=1`;
+        return db.execute(sql,[id]);
     }
 }
 
