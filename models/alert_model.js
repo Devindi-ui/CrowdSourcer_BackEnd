@@ -30,6 +30,15 @@ const alert = {
                     AND alert.status_d=1`;
         return db.execute(sql,[searchText,searchText,searchText,
                          searchText, searchText, searchText]);
+    },
+
+    update: (alert) => {
+        const {id, created_by, alert_type, description, bus_id, 
+              user_id} = alert;
+        const sql = `UPDATE alert SET created_by=?, alert_type=?, 
+                    description=?, bus_id=?, user_id=? WHERE alert_id=?`;
+        return db.execute(sql, [created_by, alert_type, description, 
+                         bus_id, user_id, id]);
     }
 }
 

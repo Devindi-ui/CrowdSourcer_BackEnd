@@ -52,6 +52,22 @@ const alerts = {
             res.status(500).json({message: 'Internal Server Error', 
                 error: error.message});
         }
+    },
+
+    updateAlert: async(req,res) => {
+        try {
+            const {created_by, alert_type, description, bus_id, 
+              user_id} = req.body;
+            const id = req.params.id;
+            const [result] = await alert.update({created_by, alert_type, 
+                description, bus_id, user_id, id});
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg:"Alert not found"});
+            }
+            res.status(200).json({msg: "Alert updated successfully!"});
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', error: error.message});
+        }
     }
 }
 
