@@ -11,6 +11,7 @@ const busTypeRouter = require('./routers/busType_router');
 const routeStopRouter = require('./routers/routeStop_router');
 const routesRouter = require('./routers/route_router');
 const alertRouter = require('./routers/alert_router');
+const busAssignmentRouter = require('./routers/busAssignment_router');
 
 app.use(express.json());
 app.use(cors());
@@ -22,6 +23,7 @@ app.use('/api/v1/busType', busTypeRouter);
 app.use('/api/v1/routeStop', routeStopRouter);
 app.use('/api/v1/route', routesRouter);
 app.use('/api/v1/alert', alertRouter);
+app.use('/api/v1/busAssignment', busAssignmentRouter);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server started on port ${process.env.PORT}`);
