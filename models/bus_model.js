@@ -38,6 +38,11 @@ const bus = {
         return db.execute(sql, [bus_number, seat_capacity, route_id,
             bus_type_id, status, id
         ]);
+    },
+
+    delete: (id) => {
+        const sql = `UPDATE bus SET bus.status_d=0 WHERE bus_id=?`;
+        return db.execute(sql, [id]);
     }
 }
 

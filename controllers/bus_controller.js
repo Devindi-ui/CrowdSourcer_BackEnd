@@ -63,6 +63,18 @@ const buses = {
         } catch (error) {
             res.status(500).json({message: 'Server Error', error: error.message});
         }
+    },
+
+    deleteBus: async(req,res) => {
+        try {
+            const [result] = await bus.delete(req.params.id);
+            if(result.length === 0){
+                return res.status(404).json({msg:'Bus not found'});
+            }
+            res.status(200).json({msg:'Bus deleted successfully!'});
+        } catch (error) {
+            res.status(500).json({message: 'Server Error', error: error.message});
+        }
     }
 }
 

@@ -7,5 +7,6 @@ router.get('/all', buses.getAllBuses);
 router.get('/find/:id', buses.getBusById);
 router.get('/search/:text', buses.getBusByText);
 router.put('/update/:id', buses.updateBus);
+router.delete('/delete/:id', buses.deleteBus);
 
 module.exports = router;
