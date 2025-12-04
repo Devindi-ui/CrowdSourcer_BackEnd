@@ -36,6 +36,18 @@ const buses = {
         } catch (error) {
             res.status(500).json({message: 'Server Error', error: error.message});
         }
+    },
+
+    getBusByText: async(req,res) => {
+        try {
+            const [result] = await bus.findByText(req.params.text);
+            if(result.length === 0){
+                return res.status(404).json({msg:'Bus not found'});
+            }
+            res.status(200).json({data:result});
+        } catch (error) {
+            res.status(500).json({message: 'Server Error', error: error.message});
+        }
     }
 }
 

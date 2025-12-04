@@ -5,5 +5,6 @@ const router = express.Router();
 router.post('/create', buses.createBus);
 router.get('/all', buses.getAllBuses);
 router.get('/find/:id', buses.getBusById);
+router.get('/search/:text', buses.getBusByText);
 
 module.exports = router;
