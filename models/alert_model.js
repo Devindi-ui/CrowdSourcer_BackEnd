@@ -39,7 +39,12 @@ const alert = {
                     description=?, bus_id=?, user_id=? WHERE alert_id=?`;
         return db.execute(sql, [created_by, alert_type, description, 
                          bus_id, user_id, id]);
+    },
+
+    delete: (id) => {
+        const sql = `UPDATE alert SET alert.status_d=0 WHERE alert_id=?`;
+        return db.execute(sql, [id]);
     }
-}
+};
 
 module.exports = alert;
