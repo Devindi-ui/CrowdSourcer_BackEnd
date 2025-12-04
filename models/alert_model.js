@@ -20,6 +20,16 @@ const alert = {
         const sql = `SELECT * FROM alert WHERE alert_id=? AND 
                     alert.status_d=1`;
         return db.execute(sql,[id]);
+    },
+
+    findByText: (input) => {
+        const searchText = `%${input}%`
+        const sql = `SELECT * FROM alert WHERE created_by LIKE ? OR
+                    alert_type LIKE ? OR description LIKE ? OR
+                    bus_id LIKE ? OR user_id LIKE ? OR status_d LIKE ? 
+                    AND alert.status_d=1`;
+        return db.execute(sql,[searchText,searchText,searchText,
+                         searchText, searchText, searchText]);
     }
 }
 
