@@ -6,14 +6,25 @@ const alerts = {
         try {
             const {created_by, alert_type, description, status, bus_id, 
                   user_id} = req.body;
+            const enrollment_date = new Date();
             const [result] = await alert.save({created_by, alert_type, 
                             description, status, bus_id, user_id, status_d:1
             });
             res.status(201).json({msg: 'Alert save successfully!!', 
                 data:result});
         } catch (error) {
-            console.log(error);
-            
+            res.status(500).json({message: 'Server Error', error: error.message});
+        }
+    },
+
+    getAllALerts: async(req,res) => {
+        try {
+            const [result] = await alert.findAll();
+            if(result.length === 0){
+                return res.status(200).json({msg:"No data found"});
+            }
+            res.status(200).json({data:result}); 
+        } catch (error) {
             res.status(500).json({message: 'Server Error', error: error.message});
         }
     }
