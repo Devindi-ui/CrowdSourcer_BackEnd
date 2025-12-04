@@ -28,6 +28,16 @@ const bus = {
                     LIKE ? OR status LIKE ? AND status_d=1`;
         return db.execute(sql, [searchText, searchText, searchText, 
             searchText, searchText])
+    },
+
+    update: (bus) => {
+        const {id, bus_number, seat_capacity, route_id, bus_type_id, 
+            status} = bus;
+        const sql = `UPDATE bus SET bus_number=?, seat_capacity=?, route_id=?,
+                    bus_type_id=?, status=? WHERE bus_id=?`;
+        return db.execute(sql, [bus_number, seat_capacity, route_id,
+            bus_type_id, status, id
+        ]);
     }
 }
 

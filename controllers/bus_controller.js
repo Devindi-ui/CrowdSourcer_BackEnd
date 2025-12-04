@@ -48,6 +48,21 @@ const buses = {
         } catch (error) {
             res.status(500).json({message: 'Server Error', error: error.message});
         }
+    },
+
+    updateBus: async(req,res) => {
+        try {
+            const {bus_number, seat_capacity, route_id, bus_type_id, status} = req.body;
+            const id = req.params.id;
+            const [result] = await bus.update({bus_number, seat_capacity, 
+                            route_id, bus_type_id, status, id});
+            if(result.length === 0){
+                return res,status(404).json({msg:'Bus not found'});
+            }
+            res.status(200).json({msg:'Bus updated successfully!'});
+        } catch (error) {
+            res.status(500).json({message: 'Server Error', error: error.message});
+        }
     }
 }
 
