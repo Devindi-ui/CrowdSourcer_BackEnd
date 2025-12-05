@@ -38,6 +38,11 @@ const trip = {
                     end_time=?, date=?, status=? WHERE trip_id=?`;
         return db.execute(sql,[bus_id, route_id, start_time, end_time, 
                          date, status, id]);
+    },
+
+    delete: (id) => {
+        const sql = `UPDATE trip SET trip.status_d=0 WHERE trip_id=?`;
+        return db.execute(sql,[id]);
     }
 };
 

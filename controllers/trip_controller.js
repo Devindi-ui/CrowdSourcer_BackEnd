@@ -66,6 +66,18 @@ const trips = {
         } catch (error) {
             res.status(500).json({message: 'Internal Server Error', error: error.message});
         }
+    },
+
+    deleteTrip: async(req, res) => {
+        try {
+            const [result] = await trip.delete(req.params.id);
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg: "Trip is not found"});
+            }
+            res.status(200).json({msg: "Trip deleted successfully"});
+        } catch (error) {
+            res.status(500).json({message: 'Server Error', error: error.message});
+        }
     }
 };
 
