@@ -14,6 +14,12 @@ const crowdReport = {
         const sql = `SELECT * FROM crowd_report WHERE crowd_report.status=1
                     ORDER BY created_at DESC`;
         return db.execute(sql);
+    },
+
+    findById: (id) => {
+        const sql = `SELECT * FROM crowd_report WHERE report_id=?
+                    AND crowd_report.status=1`;
+        return db.execute(sql,[id]);
     }
 };
 
