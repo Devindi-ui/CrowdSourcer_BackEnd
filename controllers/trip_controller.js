@@ -51,6 +51,21 @@ const trips = {
         } catch (error) {
             res.status(500).json({message: 'Internal Server Error', error: error.message});
         }
+    },
+
+    updateTrip: async(req,res) => {
+        try {
+            const {bus_id, route_id, start_time, end_time, date, status} = req.body;
+            const id = req.params.id;
+            const [result] = await trip.update({bus_id, route_id, start_time, 
+                end_time, date, status, id});
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg:"Trip not found"});
+            }
+            res.status(200).json({msg: "Trip updated successfully!"});
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', error: error.message});
+        }
     }
 };
 

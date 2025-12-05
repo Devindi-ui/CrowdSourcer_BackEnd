@@ -30,6 +30,14 @@ const trip = {
                     AND trip.status_d=1`;
         return db.execute(sql,[searchText,searchText,searchText,searchText,
                          searchText,searchText]);
+    },
+
+    update: (trip) => {
+        const {id, bus_id, route_id, start_time, end_time, date, status} = trip;
+        const sql = `UPDATE trip SET bus_id=?, route_id=?, start_time=?, 
+                    end_time=?, date=?, status=? WHERE trip_id=?`;
+        return db.execute(sql,[bus_id, route_id, start_time, end_time, 
+                         date, status, id]);
     }
 };
 
