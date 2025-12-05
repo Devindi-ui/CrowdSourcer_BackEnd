@@ -8,6 +8,12 @@ const crowdReport = {
                     crowd_status, status) VALUES(?,?,?,?,?)`;
         return db.execute(sql,[bus_id, trip_id, current_count, crowd_status, 
             status]);
+    },
+
+    findAll: () => {
+        const sql = `SELECT * FROM crowd_report WHERE crowd_report.status=1
+                    ORDER BY created_at DESC`;
+        return db.execute(sql);
     }
 };
 
