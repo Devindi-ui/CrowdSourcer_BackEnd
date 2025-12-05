@@ -20,6 +20,16 @@ const trip = {
         const sql = `SELECT * FROM trip WHERE trip_id=? AND
                     trip.status_d=1`;
         return db.execute(sql,[id]);
+    },
+
+    findByText: (input) => {
+        const searchText = `%${input}%`
+        const sql = `SELECT * FROM trip WHERE bus_id LIKE ? OR
+                    route_id LIKE ? OR start_time LIKE ? OR
+                    end_time LIKE ? OR date LIKE ? OR status LIKE ? 
+                    AND trip.status_d=1`;
+        return db.execute(sql,[searchText,searchText,searchText,searchText,
+                         searchText,searchText]);
     }
 };
 

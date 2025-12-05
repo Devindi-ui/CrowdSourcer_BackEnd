@@ -39,6 +39,18 @@ const trips = {
         } catch (error) {
             res.status(500).json({message: 'Internal Server Error', error: error.message});
         }
+    },
+
+    getTripByText: async(req,res) => {
+        try {
+            const result = await trip.findByText(req.params.text);
+            if(result.length === 0){
+                return res.status(404).json({msg: "Trip is not found"});
+            }
+            res.status(200).json({data: result});
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', error: error.message});
+        }
     }
 };
 
