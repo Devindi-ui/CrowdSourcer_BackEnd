@@ -5,5 +5,6 @@ const router = express.Router();
 router.post('/create', crowdReports.createCrowdReport);
 router.get('/all', crowdReports.getAllCrowdReports);
 router.get('/find/:id', crowdReports.getCrowdReportById);
+router.get('/search/:text', crowdReports.getCrowdReportByText);
 
 module.exports = router;

@@ -20,6 +20,14 @@ const crowdReport = {
         const sql = `SELECT * FROM crowd_report WHERE report_id=?
                     AND crowd_report.status=1`;
         return db.execute(sql,[id]);
+    },
+
+    findByText: (input) => {
+        const searchText = `%${input}%`
+        const sql = `SELECT * FROM crowd_report WHERE bus_id LIKE ? OR
+                    trip_id LIKE ? OR current_count LIKE ? OR
+                    crowd_status LIKE ? AND crowd_report.status=1`;
+        return db.execute(sql,[searchText,searchText,searchText,searchText]);
     }
 };
 
