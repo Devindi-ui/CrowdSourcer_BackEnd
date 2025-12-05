@@ -28,6 +28,13 @@ const crowdReport = {
                     trip_id LIKE ? OR current_count LIKE ? OR
                     crowd_status LIKE ? AND crowd_report.status=1`;
         return db.execute(sql,[searchText,searchText,searchText,searchText]);
+    },
+
+    update: (crowdReport) => {
+        const {bus_id, trip_id, current_count, crowd_status} = crowdReport;
+        const sql = `UPDATE crowd_report SET bus_id=?, trip_id=?, 
+                    current_count=?, crowd_status=?`;
+        return db.execute(sql,[bus_id, trip_id, current_count, crowd_status]);
     }
 };
 

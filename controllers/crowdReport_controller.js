@@ -52,6 +52,22 @@ const crowdReports = {
             
             res.status(500).json({message: 'Internal Server Error', error: error.message});
         }
+    },
+
+    updateCrowdReport: async(req,res) => {
+        try {
+            const {bus_id, trip_id, current_count, crowd_status} = req.body;
+            const id = req.params.id;
+            const [result] = await crowdReport.update({bus_id, trip_id, 
+                current_count, crowd_status, id});
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg:"Crowd Report not found"});
+            }
+            res.status(200).json({msg: "Crowd Report updated successfully!"});
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', 
+                error: error.message});
+        }
     }
 };
 
