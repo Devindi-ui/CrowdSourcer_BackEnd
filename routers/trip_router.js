@@ -4,5 +4,6 @@ const router = express.Router();
 
 router.post('/create', trips.createTrip);
 router.get('/all', trips.getAllTrips);
+router.get('/find/:id', trips.getTripById);
 
 module.exports = router;

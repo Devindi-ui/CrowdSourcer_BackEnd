@@ -14,6 +14,12 @@ const trip = {
         const sql = `SELECT * FROM trip WHERE trip.status_d=1
                     ORDER BY trip_id`;
         return db.execute(sql);
+    },
+
+    findById: (id) => {
+        const sql = `SELECT * FROM trip WHERE trip_id=? AND
+                    trip.status_d=1`;
+        return db.execute(sql,[id]);
     }
 };
 
