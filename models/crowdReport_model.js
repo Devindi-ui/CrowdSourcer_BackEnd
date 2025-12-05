@@ -33,8 +33,14 @@ const crowdReport = {
     update: (crowdReport) => {
         const {bus_id, trip_id, current_count, crowd_status} = crowdReport;
         const sql = `UPDATE crowd_report SET bus_id=?, trip_id=?, 
-                    current_count=?, crowd_status=?`;
+                    current_count=?, crowd_status=? WHERE report_id=?`;
         return db.execute(sql,[bus_id, trip_id, current_count, crowd_status]);
+    },
+
+    delete: (id) => {
+        const sql = `UPDATE crowd_report SET crowd_report.status=0
+                    WHERE report_id=?`;
+        return db.execute(sql,[id]);
     }
 };
 

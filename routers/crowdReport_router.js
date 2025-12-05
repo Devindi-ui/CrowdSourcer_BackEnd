@@ -7,5 +7,6 @@ router.get('/all', crowdReports.getAllCrowdReports);
 router.get('/find/:id', crowdReports.getCrowdReportById);
 router.get('/search/:text', crowdReports.getCrowdReportByText);
 router.put('/update/:id', crowdReports.updateCrowdReport);
+router.delete('/delete/:id', crowdReports.deleteCrowdReport);
 
 module.exports = router;
