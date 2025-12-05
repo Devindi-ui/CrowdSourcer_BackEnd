@@ -42,6 +42,12 @@ const busAssignment = {
                     assigned_time=? WHERE assignment_id=?`;
         return db.execute(sql,[bus_id, user_id, route_id, assigned_place, 
                          assigned_date, assigned_time, id]);
+    },
+
+    delete: (id) => {
+        const sql = `UPDATE bus_assignment SET bus_assignment.status=0 WHERE
+                    assignment_id=?`;
+        return db.execute(sql,[id]);
     }
 };
 
