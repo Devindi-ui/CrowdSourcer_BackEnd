@@ -6,5 +6,6 @@ router.post('/create', busAssignments.createBusAssignment);
 router.get('/all', busAssignments.getAllBusAssignments);
 router.get('/find/:id', busAssignments.getBusAssignmentById);
 router.get('/search/:text', busAssignments.getBusAssignmentByText);
+router.put('/update/:id', busAssignments.updateBusAssignment);
 
 module.exports = router;

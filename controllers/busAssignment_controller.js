@@ -54,6 +54,24 @@ const busAssignments = {
         } catch (error) {
             res.status(500).json({message: 'Internal Server Error', error: error.message});
         }
+    },
+
+    updateBusAssignment: async(req,res) => {
+        try {
+            const {bus_id, user_id, route_id, assigned_place, assigned_date, 
+                  assigned_time} = req.body;
+            const id = req.params.id;
+            const [result] = await busAssignment.update({bus_id, user_id, 
+                route_id, assigned_place, assigned_date, assigned_time, id});
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg:"Bus Assignment not found"});
+            }
+            res.status(200).json({msg: "Bus Assignment updated successfully!"});
+        } catch (error) {
+            console.log(error);
+            
+            res.status(500).json({message: 'Internal Server Error', error: error.message});
+        }
     }
 };
 

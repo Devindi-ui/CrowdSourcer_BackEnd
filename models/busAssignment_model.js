@@ -32,6 +32,16 @@ const busAssignment = {
                     ? AND bus_assignment.status=1`;
         return db.execute(sql,[searchText,searchText,searchText,searchText,
                           searchText,searchText]);
+    },
+
+    update: (busAssignment) => {
+        const {id, bus_id, user_id, route_id, assigned_place, assigned_date, 
+              assigned_time} = busAssignment;
+        const sql = `UPDATE bus_assignment SET bus_id=?, user_id=?, 
+                    route_id=?, assigned_place=?, assigned_date=?,
+                    assigned_time=? WHERE assignment_id=?`;
+        return db.execute(sql,[bus_id, user_id, route_id, assigned_place, 
+                         assigned_date, assigned_time, id]);
     }
 };
 
