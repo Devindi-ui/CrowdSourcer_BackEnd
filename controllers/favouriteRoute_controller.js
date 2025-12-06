@@ -26,6 +26,18 @@ const favouriteRoutes = {
             res.status(500).json({message: 'Internal Server Error', 
                 error: error.message});
         }
+     },
+
+     getFavouriteRouteById: async(req,res) => {
+        try {
+            const [result] = await favouriteRoute.findById(req.params.id);
+            if(result.length === 0){
+                return res.status(200).json({msg: "Favourite Route not found"});
+            }
+            res.status(200).json({data:result});
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', error: error.message});
+        }
      }
 };
 

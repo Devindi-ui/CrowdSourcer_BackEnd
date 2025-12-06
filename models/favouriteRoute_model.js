@@ -12,6 +12,12 @@ const favouriteRoute = {
         const sql = `SELECT * FROM favourite_route WHERE  
                     favourite_route.status=1 ORDER BY favourite_route_id`;
         return db.execute(sql);
+    },
+
+    findById: (id) => {
+        const sql = `SELECT * FROM favourite_route WHERE 
+                    favourite_route_id=? AND favourite_route.status=1`;
+        return db.execute(sql,[id]);
     }
 };
 
