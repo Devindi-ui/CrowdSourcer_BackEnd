@@ -5,5 +5,6 @@ const router = express.Router();
 router.post('/create', favouriteRoutes.createFavouriteRoute);
 router.get('/all', favouriteRoutes.getAllFavouriteRoutes);
 router.get('/find/:id', favouriteRoutes.getFavouriteRouteById);
+router.get('/search/:text', favouriteRoutes.getFavouriteRouteByText);
 
 module.exports = router;

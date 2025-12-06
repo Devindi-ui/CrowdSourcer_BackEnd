@@ -18,6 +18,13 @@ const favouriteRoute = {
         const sql = `SELECT * FROM favourite_route WHERE 
                     favourite_route_id=? AND favourite_route.status=1`;
         return db.execute(sql,[id]);
+    },
+
+    findByText: (input) => {
+        const searchText = `%${input}%`;
+        const sql = `SELECT * FROM favourite_route WHERE user_id LIKE ? 
+                    OR route_id LIKE ? AND favourite_route.status=1`;
+        return db.execute(sql,[searchText,searchText]);
     }
 };
 
