@@ -1,3 +1,4 @@
+const favouriteRoutes = require('../controllers/favouriteRoute_controller');
 const db = require('../db');
 
 const favouriteRoute = {
@@ -25,6 +26,13 @@ const favouriteRoute = {
         const sql = `SELECT * FROM favourite_route WHERE user_id LIKE ? 
                     OR route_id LIKE ? AND favourite_route.status=1`;
         return db.execute(sql,[searchText,searchText]);
+    },
+
+    update: (favouriteRoute) => {
+        const {id, user_id, route_id} = favouriteRoute;
+        const sql = `UPDATE favourite_route SET user_id=?, route_id=?
+                    WHERE favourite_route_id=?`;
+        return db.execute(sql,[user_id, route_id, id]);
     }
 };
 

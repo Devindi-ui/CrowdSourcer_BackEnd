@@ -6,5 +6,6 @@ router.post('/create', favouriteRoutes.createFavouriteRoute);
 router.get('/all', favouriteRoutes.getAllFavouriteRoutes);
 router.get('/find/:id', favouriteRoutes.getFavouriteRouteById);
 router.get('/search/:text', favouriteRoutes.getFavouriteRouteByText);
+router.put('/update/:id', favouriteRoutes.updateFavouriteRoute);
 
 module.exports = router;

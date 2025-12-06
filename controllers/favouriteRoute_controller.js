@@ -51,6 +51,22 @@ const favouriteRoutes = {
             res.status(500).json({message: 'Internal Server Error', 
                 error: error.message});
         }
+     },
+
+     updateFavouriteRoute: async(req,res) => {
+        try {
+            const {user_id, route_id} = req.body;
+            const id = req.params.id;
+            const result = await favouriteRoute.update({user_id, route_id,
+                id});
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg:"Favourite Route not found"});
+            }
+            res.status(200).json({msg: "Favourite Route updated successfully!"});
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', 
+                error: error.message});
+        }
      }
 };
 
