@@ -34,6 +34,12 @@ const feedback = {
         const sql = `UPDATE feedback SET user_id=?, bus_id=?, comment=?,
                     rating=? WHERE feedback_id=?`;
         return db.execute(sql,[user_id, bus_id, comment, rating, id]);
+    },
+
+    delete: (id) => {
+        const sql = `UPDATE feedback SET feedback.status=0 WHERE 
+                    feedback_id=?`;
+        return db.execute(sql,[id]);
     }
 };
 

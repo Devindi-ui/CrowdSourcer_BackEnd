@@ -70,6 +70,19 @@ const feedbacks = {
             res.status(500).json({message: 'Internal Server Error', 
                 error: error.message});
         }
+    },
+
+    deleteFeedback: async(req,res) => {
+        try {
+            const [result] = await feedback.delete(req.params.id);
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg: "Feedback not found"});
+            }
+            res.status(200).json({msg: "Feedback deleted successfully"});
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', 
+                error: error.message});
+        }
     }
 }
 
