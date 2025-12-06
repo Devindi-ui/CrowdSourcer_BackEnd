@@ -70,6 +70,19 @@ const notifications = {
             res.status(500).json({message: 'Internal Server Error', 
                 error: error.message});
         }
+    },
+
+    deleteNotification: async(req,res) => {
+        try {
+            const [result] = await notification.delete(req.params.id);
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg: "Notification not found"});
+            }
+            res.status(200).json({msg: "Notification deleted successfully"});
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', 
+                error: error.message});
+        }
     }
 };
 

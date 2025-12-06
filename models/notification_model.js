@@ -34,6 +34,12 @@ const notification = {
         const sql = `UPDATE notification SET user_id=?, bus_id=?,
                     message=? WHERE notification_id=?`;
         return db.execute(sql,[user_id, bus_id, message, id]);
+    },
+
+    delete: (id) => {
+        const sql = `UPDATE notification SET notification.status=0 WHERE
+                    notification_id=?`;
+                    return db.execute(sql,[id]);
     }
 };
 

@@ -7,5 +7,6 @@ router.get('/all', notifications.getAllNotifications);
 router.get('/find/:id', notifications.getNotificationById);
 router.get('/search/:text', notifications.getNotificationByText);
 router.put('/update/:id', notifications.updateNotification);
+router.delete('/delete/:id', notifications.deleteNotification);
 
 module.exports = router;
