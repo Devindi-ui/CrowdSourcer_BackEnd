@@ -54,6 +54,22 @@ const feedbacks = {
         } catch (error) {
             res.status(500).json({message: 'Internal Server Error', error: error.message});
         }
+    },
+
+    updateFeedback: async(req,res) => {
+        try {
+            const {user_id, bus_id, comment, rating} = req.body;
+            const id = req.params.id;
+            const [result] = await feedback.update({user_id, bus_id, 
+                comment, rating, id});
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg:"Feedback not found"});
+            }
+            res.status(200).json({msg: "Feedback updated successfully!"});
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', 
+                error: error.message});
+        }
     }
 }
 

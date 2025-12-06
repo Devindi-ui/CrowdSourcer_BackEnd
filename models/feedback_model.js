@@ -1,3 +1,4 @@
+const feedbacks = require('../controllers/feedback_controller');
 const db = require('../db');
 
 const feedback = {
@@ -26,6 +27,13 @@ const feedback = {
                     bus_id LIKE ? OR comment LIKE ? OR rating LIKE ?
                     AND feedback.status=1`;
         return db.execute(sql,[searchText,searchText,searchText,searchText]);
+    },
+
+    update: (feedback) => {
+        const {id, user_id, bus_id, comment, rating} = feedback;
+        const sql = `UPDATE feedback SET user_id=?, bus_id=?, comment=?,
+                    rating=? WHERE feedback_id=?`;
+        return db.execute(sql,[user_id, bus_id, comment, rating, id]);
     }
 };
 

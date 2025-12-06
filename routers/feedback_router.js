@@ -6,5 +6,6 @@ router.post('/create', feedbacks.createFeedback);
 router.get('/all', feedbacks.getAllFeedbacks);
 router.get('/find/:id', feedbacks.getFeedbackById);
 router.get('/search/:text', feedbacks.getFeedbackByText);
+router.put('/update/:id', feedbacks.updateFeedback);
 
 module.exports = router;
