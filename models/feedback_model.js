@@ -12,6 +12,12 @@ const feedback = {
         const sql = `SELECT * FROM feedback WHERE feedback.status=1
                     ORDER BY rating ASC`;
         return db.execute(sql);
+    },
+
+    findById: (id) => {
+        const sql = `SELECT * FROM feedback WHERE feedback_id=?
+                    AND feedback.status=1`;
+        return db.execute(sql,[id]);
     }
 };
 

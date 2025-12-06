@@ -28,6 +28,20 @@ const feedbacks = {
                 error: error.msg 
             });
         }
+    },
+
+    getFeedbackById: async(req,res) => {
+        try {
+            const [result] = await feedback.findById(req.params.id);
+            if(result.length === 0){
+                return res.status(200).json({msg:'Feedback not found'});
+            }
+            return res.status(200).json({data:result});
+        } catch (error) {
+            res.status(500).json({msg:'Internal Server Error',
+                error: error.message
+            });
+        }
     }
 }
 
