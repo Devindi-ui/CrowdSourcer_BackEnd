@@ -51,6 +51,25 @@ const notifications = {
         } catch (error) {
             res.status(500).json({message: 'Internal Server Error', error: error.message});
         }
+    },
+
+    updateNotification: async(req,res) => {
+        try {
+            const {user_id, bus_id, message} = req.body;
+            const id = req.params.id;
+            const [result] = await notification.update({user_id, bus_id,
+                message, id
+            });
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg:"Notification not found"});
+            }
+            res.status(200).json({msg: "Notification updated successfully!",
+                result:req.body
+            });
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', 
+                error: error.message});
+        }
     }
 };
 

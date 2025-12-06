@@ -1,3 +1,4 @@
+const nodemon = require('nodemon');
 const db = require('../db');
 
 const notification = {
@@ -26,6 +27,13 @@ const notification = {
                     bus_id LIKE ? OR message LIKE ? AND 
                     notification.status=1`;
         return db.execute(sql,[searchText,searchText,searchText]);
+    },
+
+    update: (notification) => {
+        const {id, user_id, bus_id, message} = notification;
+        const sql = `UPDATE notification SET user_id=?, bus_id=?,
+                    message=? WHERE notification_id=?`;
+        return db.execute(sql,[user_id, bus_id, message, id]);
     }
 };
 
