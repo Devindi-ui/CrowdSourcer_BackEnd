@@ -18,6 +18,14 @@ const notification = {
         const sql = `SELECT * FROM notification WHERE notification_id=?
                     AND notification.status=1`;
         return db.execute(sql,[id]);
+    },
+
+    findByText: (input) => {
+        const searchText = `%${input}%`;
+        const sql = `SELECT * FROM notification WHERE user_id LIKE ? OR 
+                    bus_id LIKE ? OR message LIKE ? AND 
+                    notification.status=1`;
+        return db.execute(sql,[searchText,searchText,searchText]);
     }
 };
 
