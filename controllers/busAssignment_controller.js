@@ -46,7 +46,7 @@ const busAssignments = {
 
     getBusAssignmentByText: async(req,res) => {
         try {
-            const result = await busAssignment.findByText(req.params.text);
+            const [result] = await busAssignment.findByText(req.params.text);
             if(result.length === 0){
                 return res.status(404).json({msg: "Bus Assignment not found"});
             }

@@ -43,7 +43,7 @@ const trips = {
 
     getTripByText: async(req,res) => {
         try {
-            const result = await trip.findByText(req.params.text);
+            const [result] = await trip.findByText(req.params.text);
             if(result.length === 0){
                 return res.status(404).json({msg: "Trip is not found"});
             }

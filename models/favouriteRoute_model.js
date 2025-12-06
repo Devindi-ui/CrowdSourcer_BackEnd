@@ -23,8 +23,8 @@ const favouriteRoute = {
 
     findByText: (input) => {
         const searchText = `%${input}%`;
-        const sql = `SELECT * FROM favourite_route WHERE user_id LIKE ? 
-                    OR route_id LIKE ? AND favourite_route.status=1`;
+        const sql = `SELECT * FROM favourite_route WHERE (user_id LIKE ? 
+                    OR route_id LIKE ?) AND favourite_route.status=1`;
         return db.execute(sql,[searchText,searchText]);
     },
 
@@ -33,6 +33,12 @@ const favouriteRoute = {
         const sql = `UPDATE favourite_route SET user_id=?, route_id=?
                     WHERE favourite_route_id=?`;
         return db.execute(sql,[user_id, route_id, id]);
+    },
+
+    delete: (id) => {
+        const sql = `UPDATE favourite_route SET favourite_route.status=0
+                    WHERE favourite_route_id=?`;
+        return db.execute(sql,[id]);
     }
 };
 
