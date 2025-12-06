@@ -12,6 +12,12 @@ const notification = {
         const sql = `SELECT * FROM notification WHERE notification.status=1
                     ORDER BY updated_at DESC`;
         return db.execute(sql);
+    },
+
+    findById: (id) => {
+        const sql = `SELECT * FROM notification WHERE notification_id=?
+                    AND notification.status=1`;
+        return db.execute(sql,[id]);
     }
 };
 

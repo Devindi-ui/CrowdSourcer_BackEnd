@@ -4,5 +4,6 @@ const router = express.Router();
 
 router.post('/create', notifications.createNotification);
 router.get('/all', notifications.getAllNotifications);
+router.get('/find/:id', notifications.getNotificationById);
 
 module.exports = router;
