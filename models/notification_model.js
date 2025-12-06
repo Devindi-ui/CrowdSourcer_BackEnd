@@ -8,7 +8,11 @@ const notification = {
         return db.execute(sql,[user_id, bus_id, message, status]);
     },
 
-    findAll: () =
+    findAll: () => {
+        const sql = `SELECT * FROM notification WHERE notification.status=1
+                    ORDER BY updated_at DESC`;
+        return db.execute(sql);
+    }
 };
 
 module.exports = notification;
