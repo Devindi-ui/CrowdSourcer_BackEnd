@@ -18,6 +18,14 @@ const feedback = {
         const sql = `SELECT * FROM feedback WHERE feedback_id=?
                     AND feedback.status=1`;
         return db.execute(sql,[id]);
+    },
+
+    findByText: (input) => {
+        const searchText = `%${input}%`;
+        const sql = `SELECT * FROM feedback WHERE user_id LIKE ? OR
+                    bus_id LIKE ? OR comment LIKE ? OR rating LIKE ?
+                    AND feedback.status=1`;
+        return db.execute(sql,[searchText,searchText,searchText,searchText]);
     }
 };
 
