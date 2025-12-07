@@ -20,6 +20,15 @@ const reportHistory = {
         const sql = `SELECT * FROM report_history WHERE history_id=? AND 
                     report_history.status=1`;
         return db.execute(sql,[id]);
+    },
+
+    findByText: (input) => {
+        const searchText = `%${input}%`;
+        const sql = `SELECT * FROM report_history WHERE bus_id LIKE ? OR
+                    date LIKE ? OR avg_crowd LIKE ? OR peak_time LIKE ? OR
+                    total_reports LIKE ? AND report_history.status=1`;
+        return db.execute(sql,[searchText,searchText,searchText,searchText,
+            searchText]);
     }
 };
 
