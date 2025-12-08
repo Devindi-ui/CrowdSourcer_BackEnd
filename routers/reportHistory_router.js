@@ -7,5 +7,6 @@ router.get('/all', reportHistories.getAllReportHistories);
 router.get('/find/:id', reportHistories.getReportHistoryById);
 router.get('/search/:text', reportHistories.getReportHistoryByText);
 router.put('/update/:id', reportHistories.updateReportHistory);
+router.delete('/delete/:id', reportHistories.deleteReportHistory);
 
 module.exports = router;

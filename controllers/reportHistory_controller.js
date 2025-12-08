@@ -74,6 +74,19 @@ const reportHistories = {
             res.status(500).json({message: 'Internal Server Error', 
                 error: error.message});
         }
+    },
+
+    deleteReportHistory: async(req,res) => {
+        try {
+            const [result] = await reportHistory.delete(req.params.id);
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg: "Report History not found"});
+            }
+            res.status(200).json({msg: "Report History deleted successfully"});
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', 
+                error: error.message});
+        }
     }
 };
 

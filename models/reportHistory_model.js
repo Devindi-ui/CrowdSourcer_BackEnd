@@ -38,6 +38,12 @@ const reportHistory = {
                     peak_time=?, total_reports=? WHERE history_id=?`;
         return db.execute(sql,[bus_id, date, avg_crowd, peak_time, 
             total_reports, id]);
+    },
+
+    delete: (id) => {
+        const sql = `UPDATE report_history SET report_history.status=0
+                    WHERE history_id=?`;
+        return db.execute(sql,[id]);
     }
 };
 
