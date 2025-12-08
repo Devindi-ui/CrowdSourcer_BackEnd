@@ -57,6 +57,23 @@ const reportHistories = {
             
             res.status(500).json({message: 'Internal Server Error', error: error.message});
         }
+    },
+
+    updateReportHistory: async(req,res) => {
+        try {
+            const {bus_id, date, avg_crowd, peak_time, total_reports} =
+                req.body;
+            const id = req.params.id;
+            const [result] = await reportHistory.update({bus_id, date, 
+                avg_crowd, peak_time, total_reports, id});
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg:"Student not found"});
+            }
+            res.status(200).json({msg: "Student updated successfully!"});
+        } catch (error) {
+            res.status(500).json({message: 'Internal Server Error', 
+                error: error.message});
+        }
     }
 };
 

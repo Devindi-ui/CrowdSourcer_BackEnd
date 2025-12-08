@@ -29,6 +29,15 @@ const reportHistory = {
                     total_reports LIKE ? AND report_history.status=1`;
         return db.execute(sql,[searchText,searchText,searchText,searchText,
             searchText]);
+    },
+
+    update: (reportHistory) => {
+        const {id, date, avg_crowd, peak_time, total_reports} = 
+            reportHistory;
+        const sql = `UPDATE report_history SET date=?, avg_crowd=?, 
+                    peak_time=?, total_reports=? WHERE history_id=?`;
+        return db.execute(sql,[bus_id, date, avg_crowd, peak_time, 
+            total_reports, id]);
     }
 };
 
