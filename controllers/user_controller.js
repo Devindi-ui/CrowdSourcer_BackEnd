@@ -7,10 +7,11 @@ const users = {
             const {name, email, password, phone, role_id, status_d=1} = req.body;
             const [result] = await user.save({name,email,password,phone,role_id,status_d});
             if(result.affectedRows === 1){
-                res.status(201).json({msg:`User created successful!!`});       
+                res.status(201).json({msg:`User created successful!!`, data:result});       
             }else{
                 res.status(400).json({msg:`User created fail`});
             }
+
         } catch (error) {
             res.status(500).json({message: 'Server Error', error});
         }

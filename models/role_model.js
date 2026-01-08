@@ -13,6 +13,15 @@ const role = {
         return db.execute(sql);
     },
 
+    getRoleIdByName: () => {
+        const sql = `
+            SELECT role_idFROM role
+            WHERE role_name = ?
+            AND status = 1
+        `;
+        return db.execute(sql, [role_name]);
+    },
+
     findById: (id) => {
         const sql = `SELECT * FROM role WHERE role_id=?
                     AND role.status=1`;
