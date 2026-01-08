@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const app = express();
 
+const authRouter = require('./routers/auth_router');
 const userRouter = require('./routers/user_router');
 const roleRouter = require('./routers/role_router');
 const busRouter = require('./routers/bus_router');
@@ -22,6 +23,7 @@ const reportHistoryRouter = require('./routers/reportHistory_router');
 app.use(express.json());
 app.use(cors());
 
+app.use('/api/v1', authRouter);
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/role', roleRouter);
 app.use('/api/v1/bus', busRouter);

@@ -3,9 +3,9 @@ const { findById } = require('./role_model');
 
 const user = {
     save: (user) => {
-        const {name, email, password, phone, role_id, status, status_d} = user;
-        const sql = "INSERT INTO user (name, email, password, phone, role_id, status, status_d) VALUES (?,?,?,?,?,?,?)";
-        return db.execute(sql, [name,email,password,phone,role_id,status, status_d]);
+        const {name, email, password, phone, role_id, status_d} = user;
+        const sql = "INSERT INTO user (name, email, password, phone, role_id, status_d) VALUES (?,?,?,?,?,?)";
+        return db.execute(sql, [name,email,password,phone,role_id, status_d]);
     },
 
     findAll: async() => {
@@ -24,15 +24,15 @@ const user = {
         const searchText = `%${input}%`
         const sql = `SELECT * FROM user WHERE name LIKE ? OR email LIKE ? 
                     OR password LIKE ? OR phone LIKE ? OR role_id LIKE ? 
-                    OR status LIKE ? AND user.status_d=1`;
+                    AND user.status_d=1`;
         return db.execute(sql, [searchText, searchText, searchText, 
-                            searchText, searchText, searchText]);
+                          searchText, searchText]);
     },
 
     update: (user) => {
-        const {id, name, email, password, phone, role_id, status} = user;
-        const sql = "UPDATE user SET name=?, email=?, password=?, phone=?, role_id=?, status=? WHERE user_id=?";
-        return db.execute(sql, [name, email, password, phone, role_id, status, id]);
+        const {id, name, email, password, phone, role_id} = user;
+        const sql = "UPDATE user SET name=?, email=?, password=?, phone=?, role_id=? WHERE user_id=?";
+        return db.execute(sql, [name, email, password, phone, role_id, id]);
     },
 
     delete: (id) => {

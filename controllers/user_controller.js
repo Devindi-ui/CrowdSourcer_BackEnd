@@ -4,8 +4,8 @@ const user = require('../models/user_model');
 const users = {
     createUser: async(req,res) => {
         try {
-            const {name, email, password, phone, role_id, status, status_d=1} = req.body;
-            const [result] = await user.save({name,email,password,phone,role_id,status,status_d});
+            const {name, email, password, phone, role_id, status_d=1} = req.body;
+            const [result] = await user.save({name,email,password,phone,role_id,status_d});
             if(result.affectedRows === 1){
                 res.status(201).json({msg:`User created successful!!`});       
             }else{
@@ -55,9 +55,9 @@ const users = {
 
     updateUser: async(req,res) => {
         try {
-            const {name, email, password, phone, role_id, status} = req.body;
+            const {name, email, password, phone, role_id} = req.body;
             const id = req.params.id;
-            const [result] = await user.update({name, email, password, phone, role_id, status, id});
+            const [result] = await user.update({name, email, password, phone, role_id, id});
             if(result.affectedRows === 0){
                 return res.status(404).json({message: "User not found"})
             }
