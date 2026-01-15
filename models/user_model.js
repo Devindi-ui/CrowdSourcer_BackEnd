@@ -38,6 +38,11 @@ const user = {
     delete: (id) => {
         const sql = "UPDATE user SET user.status_d=0 WHERE user_id=?";
         return db.execute(sql, [id]);
+    },
+
+    countAll: () => {
+        const sql = `SELECT COUNT(*) AS total FROM user WHERE status_d = 1`;
+        return db.execute(sql);
     }
 }; 
 

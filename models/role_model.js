@@ -13,20 +13,23 @@ const role = {
         return db.execute(sql);
     },
 
-    getRoleIdByName: () => {
-        const sql = `
-            SELECT role_idFROM role
-            WHERE role_name = ?
-            AND status = 1
-        `;
-        return db.execute(sql, [role_name]);
-    },
-
     findById: (id) => {
         const sql = `SELECT * FROM role WHERE role_id=?
                     AND role.status=1`;
         return db.execute(sql,[id]);
     },
+
+    getRoleIdByName: async (role_name) => {
+            const [rows] = await db.execute(
+                'SELECT role_id FROM role WHERE role_name = ? AND status = 1', 
+                [role_name]
+            );
+    
+            if (rows.length === 0) {
+                throw new Error('Role not found');
+            }
+            return rows[0].role_id;
+        },
 
     findByText: (input) => {
         const searchText = `%${input}%`

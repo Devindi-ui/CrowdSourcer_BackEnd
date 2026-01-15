@@ -9,7 +9,9 @@ const roles = {
             const result = await role.save({role_name, status:1});
             res.status(201).json({message: 'Role created successfully!', data: result});
         } catch (error) {
-            res.status(500).json({message: 'Server error', error});
+            console.log(error);
+            
+            res.status(500).json({message: 'Server error', error: error.message});
         }
     },
 
