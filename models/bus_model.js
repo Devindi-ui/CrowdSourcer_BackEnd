@@ -1,4 +1,5 @@
 const db = require('../db');
+const { countAll } = require('./user_model');
 
 const bus = {
     save: (bus) => {
@@ -43,6 +44,12 @@ const bus = {
     delete: (id) => {
         const sql = `UPDATE bus SET bus.status_d=0 WHERE bus_id=?`;
         return db.execute(sql, [id]);
+    },
+
+    countAll: () => {
+        const sql = `SELECT COUNT(*) AS total FROM bus WHERE 
+            status_d = 1 AND status = "active"`;
+        return db.execute(sql);
     }
 }
 
