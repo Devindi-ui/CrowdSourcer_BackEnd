@@ -43,6 +43,12 @@ const trip = {
     delete: (id) => {
         const sql = `UPDATE trip SET trip.status_d=0 WHERE trip_id=?`;
         return db.execute(sql,[id]);
+    },
+
+    countAll: () => {
+        const sql = `SELECT COUNT(*) AS total FROM trip WHERE 
+            status = "ongoing" AND status_d = 1`;
+        return db.execute(sql);
     }
 };
 

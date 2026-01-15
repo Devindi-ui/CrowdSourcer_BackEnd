@@ -78,6 +78,15 @@ const trips = {
         } catch (error) {
             res.status(500).json({message: 'Server Error', error: error.message});
         }
+    },
+
+    getRouteCount: async(req,res) => {
+        try {
+            const [[result]] = await trip.countAll();
+            res.status(200).json({total: result.total});
+        } catch (error) {
+            res.status(500).json({message: "Server Error", error: error.message});
+        }
     }
 };
 

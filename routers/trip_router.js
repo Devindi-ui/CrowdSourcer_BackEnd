@@ -8,5 +8,6 @@ router.get('/find/:id', trips.getTripById);
 router.get('/search/:text', trips.getTripByText);
 router.put('/update/:id', trips.updateTrip);
 router.delete('/delete/:id', trips.deleteTrip);
+router.get('/count', trips.getRouteCount);
 
 module.exports = router;
