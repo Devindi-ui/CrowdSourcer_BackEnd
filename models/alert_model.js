@@ -2,12 +2,13 @@ const db = require('../db');
 
 const alert = {
     save: (alert) => {
-        const {created_by, alert_type, description, bus_id, 
-              user_id, status_d} = alert;
-        const sql = `INSERT INTO alert(created_by, alert_type, description, 
-                    bus_id, user_id, status_d) VALUES(?,?,?,?,?,?)`;
-        return db.execute(sql, [created_by, alert_type, description, 
-                        bus_id, user_id, status_d]);
+        const {alert_type, description, bus_id, 
+              user_id, avg_passengers, status_d} = alert;
+        const sql = `INSERT INTO alert(alert_type, description, 
+                    bus_id, user_id, avg_passengers, status_d) 
+                    VALUES(?,?,?,?,?,?)`;
+        return db.execute(sql, [alert_type, description, bus_id, 
+            user_id, avg_passengers, status_d]);
     },
 
     findAll: () => {
@@ -24,26 +25,32 @@ const alert = {
 
     findByText: (input) => {
         const searchText = `%${input}%`
-        const sql = `SELECT * FROM alert WHERE created_by LIKE ? OR
-                    alert_type LIKE ? OR description LIKE ? OR
-                    bus_id LIKE ? OR user_id LIKE ? OR status_d LIKE ? 
-                    AND alert.status_d=1`;
-        return db.execute(sql,[searchText,searchText,searchText,
-                         searchText, searchText, searchText]);
+        const sql = `SELECT * FROM alert WHERE alert_type LIKE ? OR 
+                    description LIKE ? OR bus_id LIKE ? OR user_id LIKE ? OR 
+                    avg_passengers LIKE ? AND alert.status_d=1`;
+        return db.execute(sql,[searchText, searchText, searchText,
+                         searchText, searchText]);
     },
 
     update: (alert) => {
-        const {id, created_by, alert_type, description, bus_id, 
-              user_id} = alert;
-        const sql = `UPDATE alert SET created_by=?, alert_type=?, 
-                    description=?, bus_id=?, user_id=? WHERE alert_id=?`;
-        return db.execute(sql, [created_by, alert_type, description, 
-                         bus_id, user_id, id]);
+        const {id, alert_type, description, bus_id, 
+              user_id, avg_passengers} = alert;
+        const sql = `UPDATE alert SET alert_type=?, 
+                    description=?, bus_id=?, user_id=?, avg_passengers=?
+                    WHERE alert_id=?`;
+        return db.execute(sql, [alert_type, description, 
+                         bus_id, user_id, avg_passengers, id]);
     },
 
     delete: (id) => {
         const sql = `UPDATE alert SET alert.status_d=0 WHERE alert_id=?`;
         return db.execute(sql, [id]);
+    },
+
+    countAll: () => {
+        const sql = `SELECT COUNT(*) AS total FROM alert WHERE status_d = 1
+                    AND DATE(created_at) = CURDATE()`;
+        return db.execute(sql);
     }
 };
 

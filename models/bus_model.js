@@ -51,6 +51,6 @@ const bus = {
             status_d = 1 AND status = "active"`;
         return db.execute(sql);
     }
-}
+};
 
 module.exports = bus;

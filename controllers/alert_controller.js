@@ -4,15 +4,17 @@ const alert = require('../models/alert_model');
 const alerts = {
     createAlert: async(req,res) => {
         try {
-            const {created_by, alert_type, description, status, bus_id, 
+            const {alert_type, description, bus_id, 
                   user_id, avg_passengers} = req.body;
-            const [result] = await alert.save({created_by, alert_type, 
-                            description, status, bus_id, user_id, 
-                            avg_passengers, status_d:1
+            const [result] = await alert.save({alert_type, description, 
+                            bus_id, user_id, avg_passengers, 
+                            status_d:1
             });
             res.status(201).json({msg: 'Alert save successfully!!', 
                 data:result});
         } catch (error) {
+            console.error(error);
+            
             res.status(500).json({message: 'Server Error', error: error.message});
         }
     },
@@ -56,11 +58,11 @@ const alerts = {
 
     updateAlert: async(req,res) => {
         try {
-            const {created_by, alert_type, description, bus_id, 
-              user_id} = req.body;
+            const {alert_type, description, bus_id, 
+              user_id, avg_passengers} = req.body;
             const id = req.params.id;
-            const [result] = await alert.update({created_by, alert_type, 
-                description, bus_id, user_id, id});
+            const [result] = await alert.update({alert_type, description, 
+                bus_id, user_id, avg_passengers, id});
             if(result.affectedRows === 0){
                 return res.status(404).json({msg:"Alert not found"});
             }
@@ -79,6 +81,15 @@ const alerts = {
             res.status(200).json({msg: "Alert deleted successfully"});
         } catch (error) {
             res.status(500).json({message: 'Server Error', error: error.message});
+        }
+    },
+
+    getAlertCount: async(req,res) => {
+        try {
+            const [[result]] = await alert.countAll();
+            res.status(200).json({total: result.total});
+        } catch (error) {
+            res.status(500).json({message:"Server Error", error:error.message});
         }
     }
 };
