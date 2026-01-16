@@ -94,16 +94,8 @@ const users = {
         } catch (error) {
             res.status(500).json({message: 'Internal Server Error', error: error.message});
         }
-    },
-
-    getUserCount: async(req,res) => {
-        try {
-            const [[result]] = await user.countAll();
-            res.status(200).json({total: result.total});
-        } catch (error) {
-            res.status(500).json({message: "Server Error", error: error.message});
-        }
     }
+    
 }
 
 module.exports = users;

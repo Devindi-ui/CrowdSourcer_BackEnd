@@ -5,12 +5,21 @@ const auths = {
     createAuth: async(req,res) => {
         try {
             const {email, password} = req.body;
-            const [result] = await auth.save({email, password});
+            const [result] = await auth.save({email, password, status_d:1});
             res.status(201).json({msg: 'Logged in successfully!', 
                 data: result})
         } catch (error) {
             res.status(500).json({message: 'Internal Server Error', 
                 error: error.message});
+        }
+    },
+
+    getAuthCount: async(req,res) => {
+        try {
+            const [[result]] = await auth.countAll();
+            res.status(200).json({total: result.total});
+        } catch (error) {
+            res.status(500).json({message: "Server Error", error: error.message});
         }
     }
 }

@@ -5,10 +5,10 @@ const alerts = {
     createAlert: async(req,res) => {
         try {
             const {created_by, alert_type, description, status, bus_id, 
-                  user_id} = req.body;
-            const enrollment_date = new Date();
+                  user_id, avg_passengers} = req.body;
             const [result] = await alert.save({created_by, alert_type, 
-                            description, status, bus_id, user_id, status_d:1
+                            description, status, bus_id, user_id, 
+                            avg_passengers, status_d:1
             });
             res.status(201).json({msg: 'Alert save successfully!!', 
                 data:result});
