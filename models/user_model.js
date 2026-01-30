@@ -63,14 +63,17 @@ const user = {
         return rows;
     },
 
-    update: (user) => {
-        const {id, name, email, password, phone, role_id} = user;
-        const sql = `
-            UPDATE user 
-            SET name=?, email=?, password=?, phone=?, role_id=? 
-            WHERE user_id = ?
-        `;
-        return db.execute(sql, [name, email, password, phone, role_id, id]);
+    update: async({id, name, email, phone, role_id}) => {
+        return await db.query(
+           `UPDATE user 
+            SET 
+                name=?, 
+                email=?, 
+                phone=?, 
+                role_id=? 
+            WHERE user_id = ?`,
+            [name, email, phone, role_id, id]
+        );
     },
 
     delete: (id) => {

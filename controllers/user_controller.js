@@ -84,13 +84,28 @@ const users = {
 
     updateUser: async(req,res) => {
         try {
+            //log incoming data
+            console.log("UPDATE BODY: ", req.body);
+            console.log("UPDATE ID: ", req.params.id);
+            
             const {name, email, password, phone, role_name} = req.body;
             const id = req.params.id;
 
             //convert role_name > role_id 
-            const role_id = role_name
-                ? await role.getRoleIdByName(role_name)
-                : null;
+            let role_id = null;
+
+            if (role_name) {
+                const roleResult = await role.getRoleIdByName(role_name);
+
+                if (!roleResult || !roleResult.role_id) {
+                    return res.status(400).json({
+                        message: "Invalid role name",
+                        role_name
+                    });
+                }
+
+                role_id = roleResult.role_id;
+            }
 
             const result = await user.update({
                 id,
@@ -101,12 +116,26 @@ const users = {
                 role_id
             });
 
-            if(result[0].affectedRows === 0){
-                return res.status(404).json({message: "User not found"})
+            console.log("UPDATE RESULT: ", result);
+            
+            if (Array.isArray(result)) {
+                affectedRows = result[0];
+            } else if (result && result.affectedRows !== undefined) {
+                //MySQL style
+                affectedRows = result.affectedRows;
+            }
+
+            if(affectedRows === 0){
+                return res.status(404).json({
+                    message: "User not found or no changes made"
+                });
             }
             res.status(200).json({message: "User updated successfully!!"});
         } catch (error) {
-            res.status(500).json({message: 'Internal Server Error', error: error.message});
+            res.status(500).json({
+                message: 'Internal Server Error', 
+                error: error.message
+            });
         }
     },
 

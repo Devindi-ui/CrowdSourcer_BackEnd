@@ -20,7 +20,7 @@ const role = {
     },
 
     getRoleIdByName: async (role_name) => {
-            const [rows] = await db.execute(
+            const [rows] = await db.query(
                 'SELECT role_id FROM role WHERE role_name = ? AND status = 1', 
                 [role_name]
             );
@@ -28,7 +28,7 @@ const role = {
             if (rows.length === 0) {
                 throw new Error('Role not found');
             }
-            return rows[0].role_id;
+            return rows[0];
         },
 
     findByText: (input) => {
