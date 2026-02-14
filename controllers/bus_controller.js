@@ -4,9 +4,9 @@ const bus = require('../models/bus_model');
 const buses = {
     createBus: async(req,res) => {
         try {
-            const {bus_number, seat_capacity, route_id, bus_type_id, status} = req.body;
+            const {bus_number, seat_capacity, route_id, status} = req.body;
             const [result] = await bus.save({bus_number, seat_capacity, 
-                route_id, bus_type_id, status, status_d:1
+                route_id, status, status_d:1
             });
             res.status(201).json({message: 'Bus added successfully!!', data: result});
         } catch (error) {
@@ -26,15 +26,29 @@ const buses = {
         }
     },
 
-    getBusById: async(req,res) => {
+    getBusById: async (req, res) => {
         try {
-            const [result] = await bus.findById(req.params.id);
-            if(result.length === 0){
-                return res.status(200).json({msg:'Bus is not found'});
+
+            const id = req.params.id;
+
+            const [result] = await bus.findById(id);
+
+            if (!result || result.length === 0) {
+                return res.status(404).json({
+                    msg: "Bus not found"
+                });
             }
-            res.status(200).json({data:result});
+
+            res.status(200).json({
+                data: result[0]
+            });
+
         } catch (error) {
-            res.status(500).json({message: 'Server Error', error: error.message});
+            console.error("GET BUS ERROR:", error); // 🔥 ADD THIS
+            res.status(500).json({
+                message: "Server Error",
+                error: error.message
+            });
         }
     },
 
@@ -52,12 +66,12 @@ const buses = {
 
     updateBus: async(req,res) => {
         try {
-            const {bus_number, seat_capacity, route_id, bus_type_id, status} = req.body;
+            const {bus_number, seat_capacity, route_id, status} = req.body;
             const id = req.params.id;
             const [result] = await bus.update({bus_number, seat_capacity, 
-                            route_id, bus_type_id, status, id});
-            if(result.length === 0){
-                return res,status(404).json({msg:'Bus not found'});
+                            route_id, status, id});
+            if(result.affectedRows === 0){
+                return res.status(404).json({msg:'Bus not found'});
             }
             res.status(200).json({msg:'Bus updated successfully!'});
         } catch (error) {
@@ -68,7 +82,7 @@ const buses = {
     deleteBus: async(req,res) => {
         try {
             const [result] = await bus.delete(req.params.id);
-            if(result.length === 0){
+            if(result.affectedRows === 0){
                 return res.status(404).json({msg:'Bus not found'});
             }
             res.status(200).json({msg:'Bus deleted successfully!'});

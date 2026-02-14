@@ -8,10 +8,9 @@ const busTypes = {
             const [result] = await busType.save({type_name, description,
                 status:1
             });
-            res.status(201).json({msg: 'Bus-Type Created successfully!', data: result});
+            res.status(201).json({msg: 'Bus-Type Created successfully!', insertId: result.insertId});
         } catch (error) {
-            console.log(error);
-            
+            console.log(error);           
             res.status(500).json({message: 'Internal Server Error', error: error.message});
         }
     },
@@ -34,7 +33,7 @@ const busTypes = {
             if(result.length === 0){
                 return res.status(200).json({msg: 'Bus Type not found'});
             }
-            res.status(200).json({data: result});
+            res.status(200).json({data: result[0]});
         } catch (error) {
             res.status(500).json({message: 'Internal Server Error', error: error.message});
         }
@@ -44,7 +43,7 @@ const busTypes = {
         try {
             const [result] = await busType.findByText(req.params.text);
             if(result.length === 0){
-                return res.status(404).json({msg: 'Bus Type not found'});
+                return res.status(404).json({msg: 'No matching Bus Types found'});
             }
             res.status(200).json({data: result});
         } catch (error) {
@@ -66,7 +65,7 @@ const busTypes = {
         }
      },
 
-     deletebusTyoe: async(req,res) => {
+     deletebusType: async(req,res) => {
         try {
             const [result] = await busType.delete(req.params.id);
             if(result.affectedRows === 0){

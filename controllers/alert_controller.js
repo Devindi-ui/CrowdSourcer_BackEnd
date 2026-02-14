@@ -4,18 +4,27 @@ const alert = require('../models/alert_model');
 const alerts = {
     createAlert: async(req,res) => {
         try {
-            const {alert_type, description, bus_id, 
+            const {alert_type, description, bus_number, 
                   user_id, avg_passengers} = req.body;
+
+                  //Validation
+            if (!alert_type || !description || !bus_number || !user_id || !avg_passengers){
+                return res.status(400).json({message: "All fields are required"});
+            }
+            
             const [result] = await alert.save({alert_type, description, 
-                            bus_id, user_id, avg_passengers, 
-                            status_d:1
+                            bus_number, user_id, avg_passengers, 
+                            status_d:"1"
             });
-            res.status(201).json({msg: 'Alert save successfully!!', 
+            res.status(201).json({msg: 'Alert saved successfully!!', 
                 data:result});
         } catch (error) {
-            console.error(error);
-            
-            res.status(500).json({message: 'Server Error', error: error.message});
+            console.error("MYSQL ERROR FULL:", error);
+            res.status(500).json({
+                message: error.message,
+                code: error.code,
+                sqlMessage: error.sqlMessage
+            });
         }
     },
 
@@ -58,11 +67,17 @@ const alerts = {
 
     updateAlert: async(req,res) => {
         try {
-            const {alert_type, description, bus_id, 
+            const {alert_type, description, bus_number, 
               user_id, avg_passengers} = req.body;
             const id = req.params.id;
-            const [result] = await alert.update({alert_type, description, 
-                bus_id, user_id, avg_passengers, id});
+            const [result] = await alert.update({
+                alert_type, 
+                description, 
+                bus_number, 
+                user_id: Number(user_id), 
+                avg_passengers: Number(avg_passengers), 
+                id
+            });
             if(result.affectedRows === 0){
                 return res.status(404).json({msg:"Alert not found"});
             }
