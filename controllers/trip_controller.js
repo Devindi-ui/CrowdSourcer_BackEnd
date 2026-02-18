@@ -18,9 +18,9 @@ const trips = {
 
     getAllTrips: async(req,res) => {
         try {
-            const [result] = await trip.findAll();
+            const [result] = await trip.findAllWithRoute();
             if(result.length === 0){
-                return res.status(200).json({msg:"No data found"});
+                return res.status(200).json({msg:"No data found", data: []});
             }
             res.status(200).json({data:result});           
         } catch (error) {

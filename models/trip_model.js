@@ -10,9 +10,22 @@ const trip = {
                          status, status_d]);
     },
 
-    findAll: () => {
-        const sql = `SELECT * FROM trip WHERE trip.status_d=1
-                    ORDER BY trip_id`;
+    findAllWithRoute: () => {
+        const sql = `
+            SELECT 
+                t.trip_id,
+                t.bus_id,
+                t.route_id,
+                r.route_name,
+                t.start_time,
+                t.end_time,
+                t.date,
+                t.status,
+                t.status_d 
+            FROM trip t 
+            JOIN route r ON t.route_id = r.route_id 
+            ORDER BY t.trip_id DESC
+        `;
         return db.execute(sql);
     },
 
